@@ -1,26 +1,16 @@
-name: macos-sshx-workflow
-on:
-  push:
-    branches:
-      - main
-jobs:
-  sshx-job:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
+workflows:
+  sshx-workflow:
+    name: "SSHX Runner"
+    environment:
+      vars:
+        SSHX_TARGET: "user@your-server-ip" # Thay bằng IP và user của mày
+      flutter: stable
+    scripts:
       - name: Install SSHX
-        run: |
+        script: |
           echo "=== Installing SSHX ==="
           curl -sSf https://sshx.io/get | sh -s run
-          sshx --version
-
-      - name: Connect via SSHX
-        run: |
-          # Thay user@host bằng server của bạn
-          sshx user@your-server-ip
-          
-      - name: Run remote command
-        run: |
-          sshx user@your-server-ip "echo Hello from remote server!"
+      - name: Run SSHX
+        script: |
+          echo "=== Connecting via SSHX ==="
+          timeout 120 sshx $SSHX_TARGET
