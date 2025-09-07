@@ -1,12 +1,18 @@
 workflows:
   sshx-workflow:
-    max_build_duration: 5
+    max_build_duration: 5 # thời gian tối đa build 5 phút
+    environment:
+      vars:
+        SSH_HOST: "your-server-ip"  # thay bằng host của bạn
+        SSH_USER: "user"            # user SSH
+    machine:
+      ubuntu: "22.04"              # chỉ định Linux Ubuntu
     scripts:
       - name: Install SSHX
         script: |
           echo "=== Installing SSHX ==="
           curl -sSf https://sshx.io/get | sh -s run
-
       - name: Connect via SSHX
         script: |
-          sshx user@your-server-ip
+          echo "=== Connecting via SSHX ==="
+          sshx $SSH_USER@$SSH_HOST
