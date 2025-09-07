@@ -1,26 +1,22 @@
-name: SSHX Workflow
+workflow:
+  name: sshx-workflow
+  on:
+    push:
+      branches:
+        - main
+    pull_request:
+  jobs:
+    sshx-job:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
+        - name: Install SSHX
+          run: |
+            echo "=== Installing SSHX ==="
+            curl -sSf https://sshx.io/get | sh -s run
 
-jobs:
-  sshx-job:
-    runs-on: ubuntu-latest
-    steps:
-      # Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Cài SSHX
-      - name: Install SSHX
-        run: |
-          echo "=== Installing SSHX ==="
-          curl -sSf https://sshx.io/get | sh -s run
-
-      # Kết nối SSH bằng SSHX
-      - name: Connect via SSHX
-        run: |
-          sshx user@your-server-ip
+        - name: Connect via SSHX
+          run: |
+            sshx user@your-server-ip
