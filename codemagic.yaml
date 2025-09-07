@@ -1,23 +1,15 @@
 workflows:
   sshx-workflow:
-    triggers:
-      push:
-        branches:
-          - main
-      pull_request:
-        source_branch: "*"
-    jobs:
-      sshx-job:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repository
-            uses: actions/checkout@v3
-
-          - name: Install SSHX
-            run: |
-              echo "=== Installing SSHX ==="
-              curl -sSf https://sshx.io/get | sh -s run
-
-          - name: Connect via SSHX
-            run: |
-              sshx user@your-server-ip
+    name: SSHX Workflow
+    max_build_duration: 30 # timeout 5 phút
+    steps:
+      - checkout
+      - script:
+          name: Install SSHX
+          script: |
+            echo "=== Installing SSHX ==="
+            curl -sSf https://sshx.io/get | sh -s run
+      - script:
+          name: Connect via SSHX
+          script: |
+            sshx user@your-server-ip
