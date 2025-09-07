@@ -1,6 +1,6 @@
 workflows:
   sshx-workflow:
-    on:
+    triggers:
       push:
         branches:
           - main
