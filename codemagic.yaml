@@ -1,22 +1,23 @@
-workflow:
-  name: sshx-workflow
-  on:
-    push:
-      branches:
-        - main
-    pull_request:
-  jobs:
-    sshx-job:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
+workflows:
+  sshx-workflow:
+    on:
+      push:
+        branches:
+          - main
+      pull_request:
+        source_branch: "*"
+    jobs:
+      sshx-job:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3
 
-        - name: Install SSHX
-          run: |
-            echo "=== Installing SSHX ==="
-            curl -sSf https://sshx.io/get | sh -s run
+          - name: Install SSHX
+            run: |
+              echo "=== Installing SSHX ==="
+              curl -sSf https://sshx.io/get | sh -s run
 
-        - name: Connect via SSHX
-          run: |
-            sshx user@your-server-ip
+          - name: Connect via SSHX
+            run: |
+              sshx user@your-server-ip
