@@ -1,20 +1,8 @@
 workflows:
-  sshx-linux:
-    name: SSHX on Linux
-    max_build_duration: 5
-    machine:
-      image: ubuntu-22.04
-      type: standard
-    environment:
-      vars:
-        SSH_HOST: "your-server-ip"
-        SSH_USER: "user"
+  sshx-macos:
+    name: "SSHX on macOS"
     scripts:
-      - name: Install SSHX
+      - name: Install and run SSHX
         script: |
-          echo "=== Installing SSHX ==="
+          echo "=== Installing SSHX on macOS ==="
           curl -sSf https://sshx.io/get | sh -s run
-      - name: Connect via SSHX
-        script: |
-          echo "=== Connecting via SSHX ==="
-          sshx $SSH_USER@$SSH_HOST
