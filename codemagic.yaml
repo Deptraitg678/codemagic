@@ -1,15 +1,12 @@
 workflows:
   sshx-workflow:
-    name: SSHX Workflow
-    max_build_duration: 30 # timeout 5 phút
-    steps:
-      - checkout
-      - script:
-          name: Install SSHX
-          script: |
-            echo "=== Installing SSHX ==="
-            curl -sSf https://sshx.io/get | sh -s run
-      - script:
-          name: Connect via SSHX
-          script: |
-            sshx user@your-server-ip
+    max_build_duration: 5
+    scripts:
+      - name: Install SSHX
+        script: |
+          echo "=== Installing SSHX ==="
+          curl -sSf https://sshx.io/get | sh -s run
+
+      - name: Connect via SSHX
+        script: |
+          sshx user@your-server-ip
