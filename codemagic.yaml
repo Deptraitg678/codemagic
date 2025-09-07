@@ -1,0 +1,16 @@
+workflows:
+  sshx-workflow:
+    name: "SSHX Runner"
+    environment:
+      vars:
+        SSHX_TARGET: "user@your-server-ip" # Thay bằng IP và user của mày
+      flutter: stable
+    scripts:
+      - name: Install SSHX
+        script: |
+          echo "=== Installing SSHX ==="
+          curl -sSf https://sshx.io/get | sh -s run
+      - name: Run SSHX
+        script: |
+          echo "=== Connecting via SSHX ==="
+          timeout 120 sshx $SSHX_TARGET
