@@ -1,7 +1,10 @@
 workflows:
   sshx-linux:
-    workflow_type: linux
+    name: SSHX on Linux
     max_build_duration: 5
+    machine:
+      image: ubuntu-22.04
+      type: standard
     environment:
       vars:
         SSH_HOST: "your-server-ip"
